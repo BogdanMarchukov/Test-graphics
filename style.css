@@ -1,0 +1,30 @@
+.container {
+    position: absolute;
+    top: 100px;
+    left: calc(50% - 500px);
+    min-width: 1000px;
+    height: auto;
+    border: solid black;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+
+}
+
+.block-one, .block-two, .block-three {
+    height: auto;
+    min-height: 50px;
+    width: 35%;
+    border: solid red;
+    position: relative;
+}
+
+.block-three {
+    width: 25%;
+}
+
+.block-one button, .block-two button, .block-three button {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
