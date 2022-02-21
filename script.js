@@ -5,7 +5,9 @@ class Block {
         this.div = document.querySelector(`.${divName}`)
         this.button = document.querySelector(`.${buttonName}`)
         this.content = []
+
     }
+
 
     get() {
         return {
