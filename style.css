@@ -11,20 +11,37 @@
 
 }
 
-.block-one, .block-two, .block-three {
+.tableWrap-one, .tableWrap-two {
+    width: 100%;
+    min-height: 30px;
+    height: auto;
+    border: solid black;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.tableWrap-one input, .tableWrap-two input,  .btn {
+    width: 27% !important;
+    margin: 5px;
+}
+
+.block-one, .block-two, .block-calculate {
     height: auto;
     min-height: 50px;
-    width: 35%;
+    width: 30%;
     border: solid red;
     position: relative;
 }
 
-.block-three {
+.block-calculate {
     width: 25%;
 }
 
-.block-one button, .block-two button, .block-three button {
-    position: absolute;
+.block-one button, .block-two button, .block-calculate button {
+    position: relative;
+    box-sizing: border-box;
+    height: 20px;
     width: 100%;
-    bottom: 0;
 }
+
