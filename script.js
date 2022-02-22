@@ -6,10 +6,8 @@ class Block {
         this.button = document.querySelector(`.${buttonName}`)
         this.divName = divName
         this.buttonName = buttonName
-        this.content = {
-            html: []
+        this.content = [] // object[] object { html: HTMLElement, inputValueX: number, inputValueY: number }
 
-        }
 
     }
 
@@ -26,43 +24,48 @@ class Block {
         }
     }
 
-    returnHTML(){
-        const {length} = this.content.html
-        return `
+    returnElement(){
+        const {length} = this.content
+        return {
+            html: `
             <div class="table">
                 <input class= ${this.divName}X-${length} type="number" />
                 <input class= ${this.divName}Y-${length} type="number" />
                 <button class= 'btn ${this.divName}-btn-${length}'>delete</button>
             </div>
-        `
+        `,
+            inputValueX: null,
+            inputValueY: null
+        }
 
     }
 
     addRow() {
-        this.content.html.push(this.returnHTML())
+        this.content.push(this.returnElement())
         this.renderContent()
 
     }
 
     renderContent(){
+        console.log(this.content)
 
         this.removeHTMLContent(this.div)
 
-        this.content.html.forEach( element => {
-            this.div.innerHTML += element
+        this.content.forEach( element => {
+            this.div.innerHTML += element.html
         } )
-        this.content.html.forEach((_, index) => {
+        this.content.forEach((_, index) => {
             const buttonDom = document.querySelector(`.${this.divName}-btn-${index}`)
             this.eventClick(()=> this.delRow(index), buttonDom)
         })
     }
 
     delRow(indexItem) {
-        const copyArray = JSON.parse(JSON.stringify(this.content.html))
-        this.content.html.length = 0
+        const copyArray = JSON.parse(JSON.stringify(this.content))
+        this.content.length = 0
         copyArray.forEach((_, index)  => {
             if (indexItem !== index){
-                this.content.html.push(this.returnHTML())
+                this.content.push(this.returnElement())
             }
         })
         this.renderContent()
