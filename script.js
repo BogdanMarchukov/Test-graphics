@@ -14,6 +14,7 @@ class Block {
     }
 
     removeHTMLContent(elem) {
+        console.log('removeHTML')
         elem.innerHTML = null
     }
 
@@ -25,21 +26,27 @@ class Block {
         }
     }
 
-    addRow() {
+    returnHTML(){
         const {length} = this.content.html
-        this.content.html.push(`
+        return `
             <div class="table">
                 <input class= ${this.divName}X-${length} type="number" />
                 <input class= ${this.divName}Y-${length} type="number" />
                 <button class= 'btn ${this.divName}-btn-${length}'>delete</button>
             </div>
-        `)
+        `
 
-       this.renderContent()
+    }
+
+    addRow() {
+
+        this.content.html.push(this.returnHTML())
+        this.renderContent()
 
     }
 
     renderContent(){
+
         this.removeHTMLContent(this.div)
 
         this.content.html.forEach( element => {
