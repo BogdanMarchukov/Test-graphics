@@ -39,7 +39,6 @@ class Block {
     }
 
     addRow() {
-
         this.content.html.push(this.returnHTML())
         this.renderContent()
 
@@ -59,8 +58,12 @@ class Block {
     }
 
     delRow(indexItem) {
-        this.content.html = this.content.html.filter((_, index) => {
-            return index !== indexItem;
+        const copyArray = JSON.parse(JSON.stringify(this.content.html))
+        this.content.html.length = 0
+        copyArray.forEach((_, index)  => {
+            if (indexItem !== index){
+                this.content.html.push(this.returnHTML())
+            }
         })
         this.renderContent()
     }
