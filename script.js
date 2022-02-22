@@ -14,7 +14,7 @@ class Block {
     }
 
     removeHTMLContent(elem) {
-        elem.innerHTML = ''
+        elem.innerHTML = null
     }
 
 
@@ -31,16 +31,31 @@ class Block {
             <div class="table">
                 <input class= ${this.divName}X-${length} type="number" />
                 <input class= ${this.divName}Y-${length} type="number" />
-                <button class= btn btn-${length}>delete</button>
+                <button class= 'btn ${this.divName}-btn-${length}'>delete</button>
             </div>
         `)
 
+       this.renderContent()
+
+    }
+
+    renderContent(){
         this.removeHTMLContent(this.div)
 
         this.content.html.forEach( element => {
-            console.log(element)
             this.div.innerHTML += element
         } )
+        this.content.html.forEach((_, index) => {
+            const buttonDom = document.querySelector(`.${this.divName}-btn-${index}`)
+            this.eventClick(()=> this.delRow(index), buttonDom)
+        })
+    }
+
+    delRow(indexItem) {
+        this.content.html = this.content.html.filter((_, index) => {
+            return index !== indexItem;
+        })
+        this.renderContent()
     }
 
 
