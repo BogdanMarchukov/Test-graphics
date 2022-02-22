@@ -8,6 +8,10 @@ class Block {
 
     }
 
+    removeHTMLContent(elem) {
+        elem.innerHTML = ''
+    }
+
 
     get() {
         return {
@@ -25,11 +29,15 @@ class Block {
             </div>
         `)
 
+        this.removeHTMLContent(this.div)
 
-        this.div.innerHTML = `
-            ${this.content}
-        `
+        this.content.forEach( element => {
+
+            this.div.innerHTML += element
+        } )
     }
+
+
 
     eventClick() {
         this.button.addEventListener('click', this.addRow.bind(this))
