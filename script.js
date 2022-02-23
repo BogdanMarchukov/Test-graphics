@@ -12,7 +12,6 @@ class Block {
     }
 
     removeHTMLContent(elem) {
-        console.log('removeHTML')
         elem.innerHTML = null
     }
 
@@ -41,14 +40,13 @@ class Block {
     }
 
     addRow() {
+        console.log(this.content)
         this.content.push(this.returnElement())
         this.renderContent()
 
     }
 
     renderContent(){
-        console.log(this.content)
-
         this.removeHTMLContent(this.div)
 
         this.content.forEach( element => {
@@ -57,10 +55,13 @@ class Block {
         this.content.forEach((_, index) => {
             const buttonDom = document.querySelector(`.${this.divName}-btn-${index}`)
             this.eventClick(()=> this.delRow(index), buttonDom)
+            this.eventChange(index)
         })
+
     }
 
     delRow(indexItem) {
+
         const copyArray = JSON.parse(JSON.stringify(this.content))
         this.content.length = 0
         copyArray.forEach((_, index)  => {
@@ -69,6 +70,14 @@ class Block {
             }
         })
         this.renderContent()
+    }
+
+    eventChange(index) {
+
+        const inputX = document.querySelector(`.${this.divName}X-${index}`)
+        const inputY = document.querySelector(`.${this.divName}Y-${index}`)
+        inputX.addEventListener('input', (event)=> this.changeInputHandler.call(this, event, 'X', index))
+        inputY.addEventListener('input', (event)=> this.changeInputHandler.call(this, event, 'Y', index))
     }
 
 
@@ -83,10 +92,10 @@ class Block {
 
     changeInputHandler(event, inputName, indexArray) {
         if(inputName === 'X') {
-            this.content[indexArray][this.inputValueX] = +event.target.value
+            this.content[indexArray].inputValueX = +event.target.value
         } else {
             if(inputName === 'Y') {
-                this.content[indexArray][this.inputValueY] = +event.target.value
+                this.content[indexArray].inputValueY = +event.target.value
             }
         }
     }
