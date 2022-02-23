@@ -81,6 +81,16 @@ class Block {
         }
     }
 
+    changeInputHandler(event, inputName, indexArray) {
+        if(inputName === 'X') {
+            this.content[indexArray][this.inputValueX] = +event.target.value
+        } else {
+            if(inputName === 'Y') {
+                this.content[indexArray][this.inputValueY] = +event.target.value
+            }
+        }
+    }
+
 }
 
 
