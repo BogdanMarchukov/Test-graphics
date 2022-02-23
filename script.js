@@ -1,4 +1,3 @@
-const container = document.querySelector('.container')
 
 class Block {
     constructor(divName, buttonName) {
@@ -18,12 +17,11 @@ class Block {
 
     get() {
         return {
-            div: this.div,
-            button: this.button
+            state: this.content
         }
     }
 
-    returnElement(){
+    returnElement() {
         const {length} = this.content
         return {
             html: `
@@ -40,21 +38,20 @@ class Block {
     }
 
     addRow() {
-        console.log(this.content)
         this.content.push(this.returnElement())
         this.renderContent()
 
     }
 
-    renderContent(){
+    renderContent() {
         this.removeHTMLContent(this.div)
 
-        this.content.forEach( element => {
+        this.content.forEach(element => {
             this.div.innerHTML += element.html
-        } )
+        })
         this.content.forEach((_, index) => {
             const buttonDom = document.querySelector(`.${this.divName}-btn-${index}`)
-            this.eventClick(()=> this.delRow(index), buttonDom)
+            this.eventClick(() => this.delRow(index), buttonDom)
             this.eventChange(index)
         })
 
@@ -64,8 +61,8 @@ class Block {
 
         const copyArray = JSON.parse(JSON.stringify(this.content))
         this.content.length = 0
-        copyArray.forEach((_, index)  => {
-            if (indexItem !== index){
+        copyArray.forEach((_, index) => {
+            if (indexItem !== index) {
                 this.content.push(this.returnElement())
             }
         })
@@ -76,10 +73,9 @@ class Block {
 
         const inputX = document.querySelector(`.${this.divName}X-${index}`)
         const inputY = document.querySelector(`.${this.divName}Y-${index}`)
-        inputX.addEventListener('input', (event)=> this.changeInputHandler.call(this, event, 'X', index))
-        inputY.addEventListener('input', (event)=> this.changeInputHandler.call(this, event, 'Y', index))
+        inputX.addEventListener('input', (event) => this.changeInputHandler.call(this, event, 'X', index))
+        inputY.addEventListener('input', (event) => this.changeInputHandler.call(this, event, 'Y', index))
     }
-
 
 
     eventClick(method = null, element = null) {
@@ -91,16 +87,29 @@ class Block {
     }
 
     changeInputHandler(event, inputName, indexArray) {
-        if(inputName === 'X') {
+
+        if (inputName === 'X') {
             this.content[indexArray].inputValueX = +event.target.value
         } else {
-            if(inputName === 'Y') {
+            if (inputName === 'Y') {
                 this.content[indexArray].inputValueY = +event.target.value
             }
         }
     }
 
 }
+
+//======================================================================================
+
+class Calculate {
+    constructor(tableOneState, tableTwoState) {
+        this.tableOneState = tableOneState
+        this.tableTwoState = tableTwoState
+        this.content = [] // object[] object { html: HTMLElement, inputValueX: number, inputValueY: number }
+    }
+}
+
+//===========================================================================================
 
 
 const blockOne = new Block('tableWrap-one', 'button-one')
@@ -110,7 +119,15 @@ const blockTwo = new Block('tableWrap-two', 'button-two')
 blockOne.eventClick() // вешаем событие click для кнопки добавить
 blockTwo.eventClick() // вешаем событие click для кнопки добавить
 
+document.querySelector('.calculate').addEventListener('click', calculateClickHandler) // вешаем событие click для кнопки calculate
 
+function calculateClickHandler() {
+    const {state: tableOneState} = blockOne.get()
+    const {state: tableTwoState} = blockTwo.get()
+
+    const calculate = new Calculate(tableOneState, tableTwoState)
+
+}
 
 
 
