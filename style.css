@@ -1,7 +1,7 @@
 .container {
     position: absolute;
     top: 100px;
-    left: calc(50% - 500px);
+    left: calc(50% - 600px);
     min-width: 1000px;
     height: auto;
     border: solid black;
@@ -11,7 +11,7 @@
 
 }
 
-.tableWrap-one, .tableWrap-two {
+.tableWrap-one, .tableWrap-two, .tableWrap-calculate {
     width: 100%;
     min-height: 20px;
     height: auto;
@@ -21,10 +21,14 @@
     flex-direction: column;
 }
 
-.tableWrap-one input, .tableWrap-two input,  .btn {
+.tableWrap-one input, .tableWrap-two input,  .btn, .tableWrap-calculate input {
     width: 29% !important;
     margin: 2px;
 }
+
+
+
+
 
 .block-one, .block-two, .block-calculate {
     height: auto;
@@ -33,8 +37,9 @@
     position: relative;
 }
 
+
 .block-calculate {
-    width: 25%;
+    width: 20%;
 }
 
 .block-one button, .block-two button, .block-calculate button {
@@ -42,5 +47,9 @@
     box-sizing: border-box;
     height: 20px;
     width: 100%;
+}
+
+.tableWrap-calculate {
+
 }
 

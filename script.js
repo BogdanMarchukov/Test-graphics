@@ -130,6 +130,10 @@ class Calculate {
     }
 
     renderHTML() {
+        this.div.innerHTML = ''
+        this.content.forEach(objItem => {
+            this.div.innerHTML += objItem.html
+        })
 
     }
 
@@ -150,7 +154,7 @@ class Calculate {
                 inputValueY
             })
         }
-        console.log(this.content)
+        this.renderHTML()
 
 
     }
