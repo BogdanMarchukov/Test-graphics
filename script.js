@@ -186,24 +186,27 @@ class Canvas {
             const yFrom = 300 - i.inputValueY
 
             if (index === 0) {
-                ctx.beginPath()
-                ctx.moveTo(0, 300)
-                ctx.lineTo(xFrom,  yFrom)
-                ctx.stroke()
-                ctx.closePath()
+                this.createLine(0, 300, xFrom, yFrom)
+
             }
             if (index > 0) {
-                ctx.beginPath()
-                ctx.moveTo(xTo, yTo)
-                ctx.lineTo(xFrom, yFrom)
-                ctx.stroke()
-                ctx.closePath()
+                this.createLine(xTo, yTo, xFrom, yFrom)
             }
             xTo = i.inputValueX
             yTo = 300 - i.inputValueY
 
         })
 
+    }
+
+    createLine(xTo, yTo, xFrom, yFrom) {
+
+        const ctx = this.convas.getContext('2d')
+        ctx.beginPath()
+        ctx.moveTo(xTo, yTo)
+        ctx.lineTo(xFrom,  yFrom)
+        ctx.stroke()
+        ctx.closePath()
     }
 
 
