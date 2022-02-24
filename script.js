@@ -1,4 +1,3 @@
-
 class Block {
     constructor(divName, buttonName) {
         this.div = document.querySelector(`.${divName}`)
@@ -102,7 +101,6 @@ class Block {
 //======================================================================================
 
 
-
 //========================================================================================
 
 class Calculate {
@@ -114,13 +112,20 @@ class Calculate {
     }
 
     createElement(index, inputValueX, inputValueY) {
-        return  `
+        return `
             <div class="table">
                 <input class= calc-input-X-${index} type="number" value= ${inputValueX} disabled="disabled" />
                 <input class= calc-input-Y-${index} type="number" value= ${inputValueY} disabled="disabled" />
             </div>
             `
     }
+
+    get() {
+        return {
+            state: this.content
+        }
+    }
+
 
     calc(index) {
         return {
@@ -138,7 +143,6 @@ class Calculate {
     }
 
 
-
     createTable() {
         let maxLength
         if (this.tableOneState.length > this.tableTwoState.length) {
@@ -146,7 +150,7 @@ class Calculate {
         } else {
             maxLength = this.tableOneState.length
         }
-        for (let i = 0; i < maxLength; i++ ){
+        for (let i = 0; i < maxLength; i++) {
             const {inputValueX, inputValueY} = this.calc(i)
             this.content.push({
                 html: this.createElement(i, inputValueX, inputValueY),
@@ -160,11 +164,50 @@ class Calculate {
     }
 
 
-
-
 }
 
 //===========================================================================================
+
+
+class Canvas {
+    constructor(selector, stateTable) {
+        this.convas = document.querySelector(`.${selector}`)
+        this.stateTable = stateTable
+    }
+
+    createSchedule() {
+
+        const ctx = this.convas.getContext('2d')
+        let xTo
+        let yTo
+
+        this.stateTable.forEach((i, index) => {
+            const xFrom = i.inputValueX
+            const yFrom = 300 - i.inputValueY
+
+            if (index === 0) {
+                ctx.beginPath()
+                ctx.moveTo(0, 300)
+                ctx.lineTo(xFrom,  yFrom)
+                ctx.stroke()
+                ctx.closePath()
+            }
+            if (index > 0) {
+                ctx.beginPath()
+                ctx.moveTo(xTo, yTo)
+                ctx.lineTo(xFrom, yFrom)
+                ctx.stroke()
+                ctx.closePath()
+            }
+            xTo = i.inputValueX
+            yTo = 300 - i.inputValueY
+
+        })
+
+    }
+
+
+}
 
 
 const blockOne = new Block('tableWrap-one', 'button-one')
@@ -179,10 +222,13 @@ document.querySelector('.calculate').addEventListener('click', calculateClickHan
 function calculateClickHandler() {
     const {state: tableOneState} = blockOne.get()
     const {state: tableTwoState} = blockTwo.get()
-
     const calculate = new Calculate(tableOneState, tableTwoState)
-
     calculate.createTable()
+
+    const canvasOne = new Canvas('canvas-one', tableOneState)
+
+    canvasOne.createSchedule()
+
 
 }
 

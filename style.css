@@ -1,13 +1,15 @@
-.container {
-    position: absolute;
-    top: 100px;
+.container, .schedule-wrap {
+    position: relative;
+    top: 0;
     left: calc(50% - 600px);
     width: 1200px;
     height: auto;
     border: solid black;
     display: flex;
+    flex-direction: column;
     flex-flow: row nowrap;
     justify-content: space-between;
+    box-sizing: border-box;
 
 }
 
@@ -53,7 +55,17 @@
     width: 100%;
 }
 
-.tableWrap-calculate {
-
+.schedule-wrap {
+    border: solid red;
+    display: flex;
 }
+
+.schedule-one, .schedule-two, .schedule-three {
+    width: 100%;
+    height: 33%;
+    box-sizing: border-box;
+    border: solid black;
+    text-align: center;
+}
+
 
