@@ -101,12 +101,55 @@ class Block {
 
 //======================================================================================
 
+
+
+//========================================================================================
+
 class Calculate {
     constructor(tableOneState, tableTwoState) {
         this.tableOneState = tableOneState
         this.tableTwoState = tableTwoState
+        this.div = document.querySelector('.tableWrap-calculate')
         this.content = [] // object[] object { html: HTMLElement, inputValueX: number, inputValueY: number }
     }
+
+    createElement(index) {
+        return  `
+            <div class="table">
+                <input class= calc-input-X-${index} type="number" />
+                <input class= calc-input-Y-${index} type="number" />
+            </div>
+            `
+    }
+
+    calc(index) {
+        return {
+            html: this.createElement(index),
+            inputValueX: (this.tableOneState[index].inputValueX + this.tableTwoState[index].inputValueX) / 2,
+            inputValueY: (this.tableOneState[index].inputValueY + this.tableTwoState[index].inputValueY) / 2
+        }
+    }
+
+
+
+    createTable() {
+        let maxLength
+        if (this.tableOneState.length > this.tableTwoState.length) {
+            maxLength = this.tableTwoState.length
+        } else {
+            maxLength = this.tableOneState.length
+        }
+        for (let i = 0; i < maxLength; i++ ){
+            this.content.push(this.calc(i))
+        }
+        console.log(this.content)
+
+
+    }
+
+
+
+
 }
 
 //===========================================================================================
@@ -126,6 +169,8 @@ function calculateClickHandler() {
     const {state: tableTwoState} = blockTwo.get()
 
     const calculate = new Calculate(tableOneState, tableTwoState)
+
+    calculate.createTable()
 
 }
 
