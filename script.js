@@ -113,21 +113,24 @@ class Calculate {
         this.content = [] // object[] object { html: HTMLElement, inputValueX: number, inputValueY: number }
     }
 
-    createElement(index) {
+    createElement(index, inputValueX, inputValueY) {
         return  `
             <div class="table">
-                <input class= calc-input-X-${index} type="number" />
-                <input class= calc-input-Y-${index} type="number" />
+                <input class= calc-input-X-${index} type="number" value= ${inputValueX} disabled="disabled" />
+                <input class= calc-input-Y-${index} type="number" value= ${inputValueY} disabled="disabled" />
             </div>
             `
     }
 
     calc(index) {
         return {
-            html: this.createElement(index),
             inputValueX: (this.tableOneState[index].inputValueX + this.tableTwoState[index].inputValueX) / 2,
             inputValueY: (this.tableOneState[index].inputValueY + this.tableTwoState[index].inputValueY) / 2
         }
+    }
+
+    renderHTML() {
+
     }
 
 
@@ -140,7 +143,12 @@ class Calculate {
             maxLength = this.tableOneState.length
         }
         for (let i = 0; i < maxLength; i++ ){
-            this.content.push(this.calc(i))
+            const {inputValueX, inputValueY} = this.calc(i)
+            this.content.push({
+                html: this.createElement(i, inputValueX, inputValueY),
+                inputValueX,
+                inputValueY
+            })
         }
         console.log(this.content)
 
